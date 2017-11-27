@@ -65,6 +65,8 @@ docker run -d -p 27017:27017 -v mongodb:/data/db --name mongodb --restart always
 docker run --name rocketchat -p 80:3000 -v rocketchat:/app/uploads --env ROOT_URL=http://localhost --link mongodb:db -d --restart always rocket.chat
 ```
 5. Use the following settings to set up AD authentication
+
+```
 Domain Base: DC=EXAMPLE,DC=COM
 Custom Domain Search: {"filter": "(&(objectCategory=person)(objectclass=user)(sAMAccountName=#{username}))", "scope": "sub", "userDN": "<user>@example.com", "password": "<user_password>"}
 Domain Search User: CN=USER CN,OU=OU WHERE USER LIVES,DC=EXAMPLE,DC=COM
@@ -75,8 +77,7 @@ Sync Data: True
 Sync User Avatar: False 
 User Data Map Field: {"cn":"name", "mail":"email"} 
 Default Domain: EXAMPLE.COM
-
-Also see http://git.badger.net/snippets/4
+```
 
 License
 -------
