@@ -1,0 +1,4 @@
+---
+# handlers file for rocketchat
+- name: restart firewalld
+  systemd: name=firewalld state=restarted

@@ -1,0 +1,7 @@
+---
+# defaults file for rocketchat
+enabled_booleans:
+  - httpd_can_network_connect
+
+cert_destination: '/etc/nginx/rocketchat.crt'
+key_destination: '/etc/nginx/rocketchat.key'

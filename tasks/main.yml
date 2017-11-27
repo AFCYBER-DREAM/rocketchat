@@ -1,0 +1,28 @@
+---
+# tasks file for rocketchat
+- name: Open http and https ports in the firewall
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    immediate: true
+    state: enabled
+  with_items:
+    - https
+    - http
+  notify: restart firewalld
+
+- name: Configure nginx
+  template:
+    src: rocketchat.conf.j2
+    dest: /etc/nginx/conf.d/rocketchat.conf
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart nginx
+
+- name: Enable selinux booleans
+  seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
+  with_items: "{{ enabled_booleans }}"
