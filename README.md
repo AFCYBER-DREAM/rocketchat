@@ -19,7 +19,39 @@ You should have 3 drives on your system (assuming sdx here)
 Role Variables
 --------------
 
-None
+Example group_vars used for this role:
+
+```
+ # Name of the vg to create
+vg_name: docker_volumes
+
+# Name of Logical Volume to create
+lv_name: lv_docker_vol
+
+# Device physical volume/partition exists on
+device: "/dev/sdc"
+
+# How big is the new partition to add to VG?
+add_space: '100'
+
+# Unit type to use with parted
+unit: '%'
+
+# Where to mount the new lvm
+mount_point: "/var/lib/docker/volumes"
+
+# Filesystem to use for the new volume
+filesystem: xfs
+
+part_number: '1'
+part_start: '0%'
+part_end: '100%'
+
+docker_device: '/dev/sdb'
+
+cert_destination: '/etc/nginx/rocketchat.crt'
+key_destination: '/etc/nginx/rocketchat.key'
+```
 
 Dependencies
 ------------
@@ -32,7 +64,7 @@ Example Playbook
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     ---
-    - import_playbook: infrastructure.yml
+    - import_playbook: common.yml
 
     - name: Set up rocketchat server
       hosts: rocketchat
@@ -41,7 +73,8 @@ Including an example of how to use your role (for instance, with variables passe
 
       roles:
         - lvm_partition
-        - docker
+        - docker-setup
+        - nginx
         - rocketchat
 
 Initial Post Provisioning Operations
